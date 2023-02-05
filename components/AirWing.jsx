@@ -1,7 +1,7 @@
 import { useRef } from "react";
-import { useFrame } from "react-three-fiber";
+import { useFrame } from "@react-three/fiber";
 import { useRecoilState } from "recoil";
-import { useLoader } from "react-three-fiber";
+import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 import { shipPositionState } from "../state/game";
@@ -11,13 +11,16 @@ import { shipPositionState } from "../state/game";
 // laser velocity.
 export default function ArWing() {
   const [shipPosition, setShipPosition] = useRecoilState(shipPositionState);
+
   const ship = useRef();
+
   useFrame(({ mouse }) => {
     setShipPosition({
       position: { x: mouse.x * 6, y: mouse.y * 2 },
       rotation: { z: -mouse.x * 0.5, x: -mouse.x * 0.5, y: -mouse.y * 0.2 },
     });
   });
+
   // Update the ships position from the updated state.
   useFrame(() => {
     ship.current.rotation.z = shipPosition.rotation.z;
@@ -28,15 +31,11 @@ export default function ArWing() {
   });
 
   const { nodes } = useLoader(GLTFLoader, "/arwing.glb");
+
   return (
     <group ref={ship}>
       <mesh visible geometry={nodes.Default.geometry}>
-        <meshStandardMaterial
-          attach="material"
-          color="white"
-          roughness={1}
-          metalness={0}
-        />
+        <meshStandardMaterial color="white" roughness={1} metalness={0} />
       </mesh>
     </group>
   );

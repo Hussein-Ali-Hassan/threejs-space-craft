@@ -6,8 +6,8 @@ import { shipPositionState, laserPositionState } from "../state/game";
 // Manages creating lasers with the correct initial velocity on click.
 export default function LaserController() {
   const shipPosition = useRecoilValue(shipPositionState);
-    const [lasers, setLasers] = useRecoilState(laserPositionState);
-    
+  const [lasers, setLasers] = useRecoilState(laserPositionState);
+
   return (
     <mesh
       position={[0, 0, -8]}
@@ -27,13 +27,8 @@ export default function LaserController() {
         ])
       }
     >
-      <planeBufferGeometry attach="geometry" args={[100, 100]} />
-      <meshStandardMaterial
-        attach="material"
-        color="orange"
-        emissive="#ff0860"
-        visible={false}
-      />
+      <planeGeometry args={[100, 100]} />
+      <meshStandardMaterial color="orange" emissive="#ff0860" visible={false} />
     </mesh>
   );
 }

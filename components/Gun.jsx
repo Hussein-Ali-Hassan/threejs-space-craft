@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { TextureLoader } from "three";
-import { useFrame } from "react-three-fiber";
+import { useFrame } from "@react-three/fiber";
 
 // Draws two sprites in front of the ship indicating the direction of fire.
 // Uses a TextureLoader to load transparent PNG, and sprite to render on a 2d plane facing the camera.
@@ -20,14 +20,15 @@ export default function Gun() {
     frontTarget.current.position.y = -mouse.y * 20;
     frontTarget.current.position.x = -mouse.x * 60;
   });
+
   // Sprite material has a prop called map to set the texture on.
   return (
     <group>
       <sprite position={[0, 0, -8]} ref={rearTarget}>
-        <spriteMaterial attach="material" map={texture} />
+        <spriteMaterial map={texture} />
       </sprite>
       <sprite position={[0, 0, -16]} ref={frontTarget}>
-        <spriteMaterial attach="material" map={texture} />
+        <spriteMaterial map={texture} />
       </sprite>
     </group>
   );

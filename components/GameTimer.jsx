@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { useFrame } from "react-three-fiber";
+import { useFrame } from "@react-three/fiber";
 
 import { distance } from "../utils";
 import {
@@ -7,6 +7,7 @@ import {
   laserPositionState,
   scoreState,
 } from "../state/game";
+import { useEffect } from "react";
 
 // This component runs game logic on each frame draw to update game state.
 export default function GameTimer({
@@ -18,6 +19,10 @@ export default function GameTimer({
   const [enemies, setEnemies] = useRecoilState(enemyPositionState);
   const [lasers, setLaserPositions] = useRecoilState(laserPositionState);
   const [score, setScore] = useRecoilState(scoreState);
+
+  useEffect(() => {
+    if (enemies.length === 0) window.location.reload();
+  }, [enemies]);
 
   useFrame(() => {
     // Calculate hits and remove lasers and enemies, increase score.
@@ -34,7 +39,6 @@ export default function GameTimer({
 
     if (hitEnemies.includes(true) && enemies.length > 0) {
       setScore(score + 1);
-      console.log("hit detected");
     }
 
     // Move all of the enemies. Remove enemies that have been destroyed, or passed the player.
@@ -43,6 +47,7 @@ export default function GameTimer({
         .map((enemy) => ({ x: enemy.x, y: enemy.y, z: enemy.z + ENEMY_SPEED }))
         .filter((enemy, idx) => !hitEnemies[idx] && enemy.z < 0)
     );
+
     // Move the Lasers and remove lasers at end of range or that have hit the ground.
     setLaserPositions(
       lasers
@@ -56,5 +61,6 @@ export default function GameTimer({
         .filter((laser) => laser.z > -LASER_RANGE && laser.y > GROUND_HEIGHT)
     );
   });
+
   return null;
 }

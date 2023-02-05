@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Canvas } from "react-three-fiber";
+import { Canvas } from "@react-three/fiber";
 import { RecoilRoot } from "recoil";
 
 import LaserController from "../components/LaserController";
@@ -19,7 +19,7 @@ const GROUND_HEIGHT = -50;
 
 export default function Home() {
   return (
-    <Canvas style={{ background: "black" }}>
+    <Canvas style={{ background: "darkblue" }}>
       <RecoilRoot>
         <directionalLight intensity={1} />
         <ambientLight intensity={0.1} />

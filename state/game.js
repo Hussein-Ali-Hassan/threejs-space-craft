@@ -10,12 +10,16 @@ export const enemyPositionState = atom({
   default: [
     { x: -10, y: 10, z: -80 },
     { x: 20, y: 20, z: -100 },
-  ], // default value (aka initial value)
+    { x: 10, y: 10, z: -120 },
+    { x: -10, y: 15, z: -150 },
+    { x: 10, y: 8, z: -165 },
+    { x: -10, y: 22, z: -190 },
+  ],
 });
 
 export const laserPositionState = atom({
   key: "laserPositions", // unique ID (with respect to other atoms/selectors)
-  default: [], // default value (aka initial value)
+  default: [],
 });
 
 export const scoreState = atom({

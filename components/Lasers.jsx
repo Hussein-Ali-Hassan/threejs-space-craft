@@ -10,8 +10,8 @@ export default function Lasers() {
     <group>
       {lasers.map((laser) => (
         <mesh position={[laser.x, laser.y, laser.z]} key={`${laser.id}`}>
-          <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-          <meshStandardMaterial attach="material" emissive="white" wireframe />
+          <boxGeometry args={[1, 1, 1]} />
+          <meshStandardMaterial emissive="white" wireframe />
         </mesh>
       ))}
     </group>
